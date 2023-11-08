@@ -1,10 +1,10 @@
 package com.EMS.EMS_API.conroller;
 
+import com.EMS.EMS_API.entity.Task;
 import com.EMS.EMS_API.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,18 +18,6 @@ import java.util.List;
         @Autowired
         public TaskController(TaskService taskService) {
             this.taskService = taskService;
-        }
-
-        @PostMapping
-        public ResponseEntity<Task> createTask(@RequestBody Task task) {
-            Task createdTask = taskService.createTask(task);
-            return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
-        }
-
-        @GetMapping
-        public ResponseEntity<List<Task>> getAllTask() {
-            List<Task> tasks = taskService.getAllTask();
-            return new ResponseEntity<>(tasks, HttpStatus.OK);
         }
 
         @GetMapping("/{id}")
@@ -61,12 +49,5 @@ import java.util.List;
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }
-
-        @DeleteMapping("/{id}")
-        public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
-            taskService.deleteTask(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
     }
 
-}

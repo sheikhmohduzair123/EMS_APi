@@ -49,6 +49,6 @@ public class Institute implements Serializable {
 	private User assistant;
 
 	@OneToMany(mappedBy="instituteId")
-	private List<NewTask> tasks;
+	private List<Task> tasks;
 
 }

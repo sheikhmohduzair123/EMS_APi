@@ -18,61 +18,68 @@ public class User  implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name="user_name", nullable=false, unique=true)
+	public User(String userName, String name, String password, String email) {
+		this.userName = userName;
+		this.name = name;
+		Password = password;
+		this.email = email;
+	}
+
+	@Column(name="user_name")
     private String userName;
 	
 
-	@Column(name="name", nullable=false)
+	@Column(name="name")
     private String name;
     
     @JsonIgnore
-    @Column(name="password", nullable=false)
-    private String hashedPassword;
+    @Column(name="password")
+    private String Password;
 
-	@Column(name="email", nullable=false)
+	@Column(name="email")
     private String email;
     
 
-	@Column(name="mobile", nullable=false)
+	@Column(name="mobile")
     private String mobile;
     
 	@DateTimeFormat(pattern="dd-MM-yyyy")
-	@Column(name="dob", nullable=false)
+	@Column(name="dob")
     private LocalDate dob = LocalDate.now();
 	
-	@Column(name="bcece", nullable=true)
+	@Column(name="bcece")
 	private Long bceceId;
 	
-	@Column(name="student", nullable=true)
+	@Column(name="student")
 	private Long studentId;
 	
-	@Column(name="institute", nullable=true)
+	@Column(name="institute")
 	private Long instituteId;
 	
-	@Column(name="branch", nullable=true)
+	@Column(name="branch")
 	private Long branchId;
 	
-	@Column(name="center", nullable=true)
+	@Column(name="center")
 	private Long centerId;
 
 	@OneToMany(mappedBy="opr")
-	private List<NewTask> taskOpr;
+	private List<Task> taskOpr;
 
 	@OneToMany(mappedBy="opr1")
-	private List<NewTask> taskOpr1;
+	private List<Task> taskOpr1;
 	
 
 	@OneToMany(mappedBy="opr2")
-	private List<NewTask> taskOpr2;
+	private List<Task> taskOpr2;
 
 	
-	@Column(name="examiner", nullable=false)
+	@Column(name="examiner")
 	private Boolean isExaminer=false;
 
-	@Column(name="type", nullable=true)
+	@Column(name="type")
     private String type;
 	
-	@Column(name="cfms", nullable=true)
+	@Column(name="cfms")
     private String cfmsId;
 
 
@@ -83,41 +90,41 @@ public class User  implements Serializable {
 	private List<Institute> institutesAssistant;
 
 	@OneToMany(mappedBy="examiner1")
-	private List<NewTask> task1;
+	private List<Task> task1;
 	
 
 	@OneToMany(mappedBy="examiner2")
-	private List<NewTask> task2;
+	private List<Task> task2;
 	
 
 	@OneToMany(mappedBy="examiner3")
-	private List<NewTask> task3;
+	private List<Task> task3;
 
-	@Column(name="profile", nullable=false)
+	@Column(name="profile")
 	private boolean profile = false;
 	
-	@Column(name="ifsc_code", nullable=true)
+	@Column(name="ifsc_code")
     private String ifscCode;
 	
-	@Column(name="bank_name", nullable=true)
+	@Column(name="bank_name")
     private String bankName;
 	
-	@Column(name="account_no", nullable=true)
+	@Column(name="account_no")
     private String accountNo;
 	
-	@Column(name="account_holder", nullable=true)
+	@Column(name="account_holder")
     private String accountHolder;
 	
-	@Column(name="pan", nullable=true)
+	@Column(name="pan")
     private String pan;
 	
-	@Column(name="address", nullable=true)
+	@Column(name="address")
     private String address;
 	
-	@Column(name="institute_name", nullable=true)
+	@Column(name="institute_name")
     private String instituteName;
 	
-	@Column(name="branch_name", nullable=true)
+	@Column(name="branch_name")
     private String branchName;
 
 }

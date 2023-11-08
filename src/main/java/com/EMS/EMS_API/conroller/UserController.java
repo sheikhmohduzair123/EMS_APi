@@ -23,24 +23,6 @@ import java.util.List;
             this.userService = userService;
         }
 
-        /*@PostMapping("/register")
-        public ResponseEntity<Void> registerUser(@RequestBody UserRegistrationRequest userRegistrationRequest) {
-            try {
-                String name = userRegistrationRequest.getName();
-                String userName = userRegistrationRequest.getUserName();
-                String mobile = userRegistrationRequest.getMobile();
-                String email = userRegistrationRequest.getEmail();
-                String password = userRegistrationRequest.getPassword();
-
-
-                userService.registerUser();
-
-                return new ResponseEntity<>(HttpStatus.CREATED);
-            } catch (Exception e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }*/
-
         @PostMapping("/login")
         public ResponseEntity<UserLoginResponse> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
             try {
@@ -58,7 +40,8 @@ import java.util.List;
                     boolean isMatch = BCrypt.checkpw(inputPassword, hashedPassword);
 
                     if (isMatch) {
-                        String token = "your-jwt-token-generation"; // Implement your JWT token generation logic here
+                        String token = "your-jwt-token-generation";
+                        // Implement your JWT token generation logic here
                         return new ResponseEntity<>(new UserLoginResponse(user, token, "success"), HttpStatus.OK);
                     } else {
                         return new ResponseEntity<>(new UserLoginResponse("Invalid password.", "error"), HttpStatus.UNAUTHORIZED);
@@ -94,29 +77,6 @@ import java.util.List;
             }
         }
 
-            /*@PutMapping("/reset-password")
-            public ResponseEntity<Void> resetPassword(@RequestBody UserPasswordResetRequest passwordResetRequest) {
-                try {
-                    String userName = passwordResetRequest.getUserName();
-                    String password = passwordResetRequest.getPassword();
-
-                    int saltRounds = 10;
-                    String hashedPassword = (password != null) ? BCrypt.hashpw(password, BCrypt.gensalt(saltRounds)) : "";
-
-                    User user = userService.getUserByUserName(userName);
-
-                    if (user == null) {
-                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                    }
-
-                    userService.updateUserPassword(user.getId(), hashedPassword);
-
-                    return new ResponseEntity<>(HttpStatus.OK);
-                } catch (Exception e) {
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }*/
-
             @PostMapping("/forget-password")
             public ResponseEntity<UserPasswordResetResponse> forgetPassword(@RequestBody UserForgetPasswordRequest forgetPasswordRequest) {
                 try {
@@ -141,16 +101,6 @@ import java.util.List;
                     return new ResponseEntity<>(new UserPasswordResetResponse("Internal server error", "error"), HttpStatus.INTERNAL_SERVER_ERROR);
                 }
             }
-
-            /*@GetMapping
-            public ResponseEntity<List<User>> getAllUsers() {
-                try {
-                    List<User> users = userService.getAllUsers();
-                    return new ResponseEntity<>(users, HttpStatus.OK);
-                } catch (Exception e) {
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }*/
 
             @GetMapping("/{id}")
             public ResponseEntity<User> getUserById(@PathVariable Long id) {

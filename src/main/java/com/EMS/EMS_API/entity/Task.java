@@ -10,95 +10,94 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-
 @Entity
 @Data
 @Table(name="new_task")
-public class NewTask implements Serializable {
+public class Task implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="academic_term", nullable=false)
+	@Column(name="academic_term")
 	private String academicTerm;
 	
-	@Column(name="course_title", nullable=false)
+	@Column(name="course_title")
 	private String courseTitle;
 
-	@Column(name="term", nullable=false)
+	@Column(name="term")
 	private String term;
 	
-	@Column(name="type", nullable=false)
+	@Column(name="type")
 	private String type;
 	
-	@Column(name="max", nullable=false)
+	@Column(name="max")
 	private Integer max;
 	
-	@Column(name="compiled", nullable=false)
+	@Column(name="compiled")
 	private Boolean compiled = false;
 	
-	@Column(name="opr_fin", nullable=false)
+	@Column(name="opr_fin")
 	private Boolean oprFin = false;
 	
-	@Column(name="opr1_fin", nullable=false)
+	@Column(name="opr1_fin")
 	private Boolean opr1Fin = false;
 	
-	@Column(name="opr2_fin", nullable=false)
+	@Column(name="opr2_fin")
 	private Boolean opr2Fin = false;
 	
 	@ManyToOne
-    @JoinColumn(name="opr", nullable=true)
+    @JoinColumn(name="opr")
 	private User opr;
 	
 	@ManyToOne
-    @JoinColumn(name="opr1", nullable=true)
+    @JoinColumn(name="opr1")
 	private User opr1;
 	
 	@ManyToOne
-    @JoinColumn(name="opr2", nullable=true)
+    @JoinColumn(name="opr2")
 	private User opr2;
 	
 	@ManyToOne
-    @JoinColumn(name="institute_id", nullable=false)
+    @JoinColumn(name="institute_id")
 	private Institute instituteId;
 
-	@Column(name="scheduled", nullable=false)
+	@Column(name="scheduled")
 	private boolean scheduled = false;
 	
-	@Column(name="verified", nullable=false)
+	@Column(name="verified")
 	private boolean verified = false;
 	
-	@Column(name="finalized", nullable=false)
+	@Column(name="finalized")
 	private boolean finalized = false;
 	
-	@Column(name="verified_ex1", nullable=false)
+	@Column(name="verified_ex1")
 	private boolean verifiedEx1 = false;
 	
-	@Column(name="verified_ex2", nullable=false)
+	@Column(name="verified_ex2")
 	private boolean verifiedEx2 = false;
 	
-	@Column(name="verified_ex3", nullable=false)
+	@Column(name="verified_ex3")
 	private boolean verifiedEx3 = false;
 	
 	@ManyToOne
-    @JoinColumn(name="invigilator", nullable=true)
+    @JoinColumn(name="invigilator")
 	private User invigilator;
 	
 	@ManyToOne
-    @JoinColumn(name="examiner1", nullable=true)
+    @JoinColumn(name="examiner1")
 	private User examiner1;
 	
 	@ManyToOne
-    @JoinColumn(name="examiner2", nullable=true)
+    @JoinColumn(name="examiner2")
 	private User examiner2;
 	
 	@ManyToOne
-    @JoinColumn(name="examiner3", nullable=true)
+    @JoinColumn(name="examiner3")
 	private User examiner3;
 	
-	@Column(name="exam_date", nullable=true)
+	@Column(name="exam_date")
 	private String examDate;
 
 	@DateTimeFormat(pattern="dd-MMM-yyyy")
@@ -106,44 +105,42 @@ public class NewTask implements Serializable {
     private LocalDate startDate;
 	
 	@DateTimeFormat(pattern="dd-MMM-yyyy")
-	@Column(name="end_date", nullable=false)
+	@Column(name="end_date")
     private LocalDate endDate;
 
 
 	@OneToMany(mappedBy="taskId")
-	private List<NewMarks> marks;
+	private List<Marks> marks;
 
 	
-	@Column(name="students", nullable=true)
+	@Column(name="students")
 	private Integer students;
 	
-	@Column(name="days", nullable=true)
+	@Column(name="days")
 	private Integer days;
 	
-	@Column(name="conv", nullable=true)
+	@Column(name="conv")
 	private Integer conv;
 	
-	@Column(name="amount", nullable=true)
+	@Column(name="amount")
 	private Integer amount;
 	
-	@Column(name="total", nullable=true)
+	@Column(name="total")
 	private Integer total;
 
-	@Column(name="opr1_bill", nullable=true)
+	@Column(name="opr1_bill")
 	private String opr1Bill;
 	
-	@Column(name="opr2_bill", nullable=true)
+	@Column(name="opr2_bill")
 	private String opr2Bill;
 	
-	@Column(name="opr1_date", nullable=true)
+	@Column(name="opr1_date")
 	private Date opr1Date;
 	
-	@Column(name="opr2_date", nullable=true)
+	@Column(name="opr2_date")
 	private Date opr2Date;
 	
-	@Column(name="amount_in_words", nullable=true)
+	@Column(name="amount_in_words")
 	private String amountInWords;
-
-
 
 }

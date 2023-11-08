@@ -2,8 +2,8 @@ package com.EMS.EMS_API.conroller;
 
 
 
-import com.EMS.EMS_API.entity.NewMarks;
-import com.EMS.EMS_API.service.NewMarkService;
+import com.EMS.EMS_API.entity.Marks;
+import com.EMS.EMS_API.service.MarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,30 +13,30 @@ import java.util.List;
 
 @RestController
     @RequestMapping("/newmarks")
-    public class NewMarkController {
+    public class MarksController {
 
-        private final NewMarkService newMarkService;
+        private final MarkService newMarkService;
 
         @Autowired
-        public NewMarkController(NewMarkService newMarkService) {
+        public MarksController(MarkService newMarkService) {
             this.newMarkService = newMarkService;
         }
 
         @PostMapping
-        public ResponseEntity<NewMarks> createNewMark(@RequestBody NewMarks newMark) {
-            NewMarks createdNewMark = newMarkService.createNewMark(newMark);
+        public ResponseEntity<Marks> createNewMark(@RequestBody Marks newMark) {
+            Marks createdNewMark = newMarkService.createNewMark(newMark);
             return new ResponseEntity<>(createdNewMark, HttpStatus.CREATED);
         }
 
         @GetMapping
-        public ResponseEntity<List<NewMarks>> getAllNewMarks() {
-            List<NewMarks> newMarks = newMarkService.getAllNewMarks();
+        public ResponseEntity<List<Marks>> getAllNewMarks() {
+            List<Marks> newMarks = newMarkService.getAllNewMarks();
             return new ResponseEntity<>(newMarks, HttpStatus.OK);
         }
 
         @GetMapping("/{id}")
-        public ResponseEntity<NewMarks> getNewMarkById(@PathVariable Long id) {
-            NewMarks newMark = newMarkService.getNewMarkById(id);
+        public ResponseEntity<Marks> getNewMarkById(@PathVariable Long id) {
+            Marks newMark = newMarkService.getNewMarkById(id);
             if (newMark != null) {
                 return new ResponseEntity<>(newMark, HttpStatus.OK);
             } else {
@@ -45,8 +45,8 @@ import java.util.List;
         }
 
         @GetMapping("/task/{taskId}")
-        public ResponseEntity<NewMarks> getNewMarkByTaskId(@PathVariable Long taskId) {
-            NewMarks newMark = newMarkService.getNewMarkByTaskId(taskId);
+        public ResponseEntity<Marks> getNewMarkByTaskId(@PathVariable Long taskId) {
+            Marks newMark = newMarkService.getNewMarkByTaskId(taskId);
             if (newMark != null) {
                 return new ResponseEntity<>(newMark, HttpStatus.OK);
             } else {
@@ -55,8 +55,8 @@ import java.util.List;
         }
 
         @PutMapping("/{id}")
-        public ResponseEntity<NewMarks> updateNewMark(@PathVariable Long id, @RequestBody NewMarks updatedNewMark) {
-            NewMarks newMark = newMarkService.updateNewMark(id, updatedNewMark);
+        public ResponseEntity<Marks> updateNewMark(@PathVariable Long id, @RequestBody Marks updatedNewMark) {
+            Marks newMark = newMarkService.updateNewMark(id, updatedNewMark);
             if (newMark != null) {
                 return new ResponseEntity<>(newMark, HttpStatus.OK);
             } else {
@@ -71,4 +71,4 @@ import java.util.List;
         }
     }
 
-}
+

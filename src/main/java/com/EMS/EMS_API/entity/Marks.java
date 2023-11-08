@@ -4,13 +4,11 @@ package com.EMS.EMS_API.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.io.Serializable;
-
 
 @Entity
 @Data
 @Table(name="new_marks")
-public class NewMarks {
+public class Marks {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -40,9 +38,7 @@ public class NewMarks {
 	
 	@ManyToOne
     @JoinColumn(name="task_id", nullable=false)
-	private NewTask taskId;
-	
+	private Task taskId;
 
-	
 
 }
