@@ -36,20 +36,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         // Configuring HttpSecurity
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-            return http.csrf().disable()
+            http.csrf()
+                    .disable()
                     .authorizeHttpRequests()
-                    .requestMatchers("/auth/welcome", "/auth/addNewUser", "/auth/generateToken").permitAll()
-                    .and()
-                    .authorizeHttpRequests().requestMatchers("/auth/user/**").authenticated()
-                    .and()
-                    .authorizeHttpRequests().requestMatchers("/auth/admin/**").authenticated()
+                    .requestMatchers("/users/login","/users/register")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
                     .and()
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
                     .authenticationProvider(authenticationProvider())
-                    .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
-                    .build();
+                    .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
+
+            return http.build();
         }
 
         @Bean
@@ -67,8 +68,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
         @Bean
         public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+
+
+            System.out.println("userService_______________________");
             return config.getAuthenticationManager();
         }
+
 
 
 

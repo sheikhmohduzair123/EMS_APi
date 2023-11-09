@@ -1,3 +1,4 @@
+/*
 package com.EMS.EMS_API.service;
 
 import com.EMS.EMS_API.entity.NewMarks;
@@ -23,3 +24,4 @@ public class NewMarkService {
     public void deleteNewMark(Long id) {
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.EMS.EMS_API.conroller;
 
 import com.EMS.EMS_API.entity.Institute;
@@ -20,11 +21,13 @@ import java.util.List;
             this.instituteService = instituteService;
         }
 
-        /*@PostMapping
+        */
+/*@PostMapping
         public ResponseEntity<Institute> createInstitute(@RequestBody Institute institute) {
             Institute createdInstitute = instituteService.createInstitute(institute);
             return new ResponseEntity<>(createdInstitute, HttpStatus.CREATED);
-        }*/
+        }*//*
+
 
         @GetMapping
         public ResponseEntity<List<Institute>> getAllInstitute() {
@@ -48,7 +51,8 @@ import java.util.List;
             }
         }
 
-        /*@PutMapping("/{id}")
+        */
+/*@PutMapping("/{id}")
         public ResponseEntity<Institute> updateInstitute(@PathVariable Long id, @RequestBody Institute updatedInstitute) {
             Institute institute = instituteService.updateInstitute(id, updatedInstitute);
             if (institute != null) {
@@ -56,13 +60,17 @@ import java.util.List;
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-        }*/
+        }*//*
 
-        /*@DeleteMapping("/{id}")
+
+        */
+/*@DeleteMapping("/{id}")
         public ResponseEntity<Void> deleteInstitute(@PathVariable Long id) {
             instituteService.deleteInstitute(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }*/
+        }*//*
+
     }
 
 
+*/

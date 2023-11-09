@@ -1,3 +1,4 @@
+/*
 package com.EMS.EMS_API.service;
 
 import com.EMS.EMS_API.entity.Institute;
@@ -14,12 +15,15 @@ public class InstituteService {
     public Institute getInstituteById(Long id) {
     }
 
-  /*  public List<AcademicTerm> getAllAcademicTerm() {
+  */
+/*  public List<AcademicTerm> getAllAcademicTerm() {
     }
-*/
+*//*
+
     public List<Institute> getAllInstitute() {
     }
 
     public Institute createInstitute(Institute institute) {
     }
 }
+*/

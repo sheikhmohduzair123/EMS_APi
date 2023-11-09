@@ -2,6 +2,7 @@ package com.EMS.EMS_API.conroller;
 
 import com.EMS.EMS_API.entity.User;
 import com.EMS.EMS_API.service.UserService;
+import com.EMS.EMS_API.utils.JwtService;
 import com.EMS.EMS_API.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 
 @RestController
     @RequestMapping("/users")
@@ -18,60 +18,56 @@ import java.util.List;
 
         private final UserService userService;
 
+        private final JwtService jwtService;
+
         @Autowired
-        public UserController(UserService userService) {
+        public UserController(UserService userService, JwtService jwtService) {
             this.userService = userService;
+            this.jwtService = jwtService;
         }
 
-        /*@PostMapping("/register")
+
+    @PostMapping("/login")
+    public ResponseEntity<UserLoginResponse> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
+        try {
+            User authenticatedUser = this.userService.login(userLoginRequest);
+
+            if (authenticatedUser == null) {
+                return new ResponseEntity<>(new UserLoginResponse("Username is required.", "error"), HttpStatus.BAD_REQUEST);
+            }
+
+            String inputPassword = userLoginRequest.getPassword();
+
+            String token = jwtService.generateToken(authenticatedUser.getUsername()); // Implement your JWT token generation logic here
+            return new ResponseEntity<>(new UserLoginResponse(authenticatedUser, token, "success"), HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(new UserLoginResponse("Internal server error.", "error"), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+     @PostMapping("/register")
         public ResponseEntity<Void> registerUser(@RequestBody UserRegistrationRequest userRegistrationRequest) {
-            try {
+           try {
                 String name = userRegistrationRequest.getName();
                 String userName = userRegistrationRequest.getUserName();
                 String mobile = userRegistrationRequest.getMobile();
                 String email = userRegistrationRequest.getEmail();
                 String password = userRegistrationRequest.getPassword();
 
+                User usr=new User(name,userName,mobile,email,password);
 
-                userService.registerUser();
+
+                userService.registerUser(usr);
 
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }*/
-
-        @PostMapping("/login")
-        public ResponseEntity<UserLoginResponse> loginUser(@RequestBody UserLoginRequest userLoginRequest) {
-            try {
-                String userName = userLoginRequest.getUserName();
-                String inputPassword = userLoginRequest.getPassword();
-
-                if (userName == null) {
-                    return new ResponseEntity<>(new UserLoginResponse("Username is required.", "error"), HttpStatus.BAD_REQUEST);
-                }
-
-                User user = userService.getUserByUserName(userName);
-
-                if (user != null) {
-                    String hashedPassword = user.getPassword();
-                    boolean isMatch = BCrypt.checkpw(inputPassword, hashedPassword);
-
-                    if (isMatch) {
-                        String token = "your-jwt-token-generation"; // Implement your JWT token generation logic here
-                        return new ResponseEntity<>(new UserLoginResponse(user, token, "success"), HttpStatus.OK);
-                    } else {
-                        return new ResponseEntity<>(new UserLoginResponse("Invalid password.", "error"), HttpStatus.UNAUTHORIZED);
-                    }
-                } else {
-                    return new ResponseEntity<>(new UserLoginResponse("User does not exist.", "error"), HttpStatus.UNAUTHORIZED);
-                }
-            } catch (Exception e) {
-                return new ResponseEntity<>(new UserLoginResponse("Internal server error.", "error"), HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+        }
         }
 
-        @PutMapping("/{id}")
+   /* @PutMapping("/{id}")
         public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest userUpdateRequest) {
             try {
                 User user = userService.getUserById(id);
@@ -93,31 +89,9 @@ import java.util.List;
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
+*/
 
-            /*@PutMapping("/reset-password")
-            public ResponseEntity<Void> resetPassword(@RequestBody UserPasswordResetRequest passwordResetRequest) {
-                try {
-                    String userName = passwordResetRequest.getUserName();
-                    String password = passwordResetRequest.getPassword();
-
-                    int saltRounds = 10;
-                    String hashedPassword = (password != null) ? BCrypt.hashpw(password, BCrypt.gensalt(saltRounds)) : "";
-
-                    User user = userService.getUserByUserName(userName);
-
-                    if (user == null) {
-                        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                    }
-
-                    userService.updateUserPassword(user.getId(), hashedPassword);
-
-                    return new ResponseEntity<>(HttpStatus.OK);
-                } catch (Exception e) {
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }*/
-
-            @PostMapping("/forget-password")
+           /* @PostMapping("/forget-password")
             public ResponseEntity<UserPasswordResetResponse> forgetPassword(@RequestBody UserForgetPasswordRequest forgetPasswordRequest) {
                 try {
                     String email = forgetPasswordRequest.getEmail();
@@ -139,16 +113,6 @@ import java.util.List;
                     }
                 } catch (Exception e) {
                     return new ResponseEntity<>(new UserPasswordResetResponse("Internal server error", "error"), HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-
-            /*@GetMapping
-            public ResponseEntity<List<User>> getAllUsers() {
-                try {
-                    List<User> users = userService.getAllUsers();
-                    return new ResponseEntity<>(users, HttpStatus.OK);
-                } catch (Exception e) {
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
                 }
             }*/
 

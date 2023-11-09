@@ -124,6 +124,14 @@ public class User  implements UserDetails, Serializable {
 	@Column(name="branch_name", nullable=true)
     private String branchName;
 
+	public User(String name, String userName, String mobile, String email, String password) {
+		this.name=name;
+		this.userName=userName;
+		this.mobile=mobile;
+		this.email=email;
+		this.hashedPassword=password;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;
@@ -131,12 +139,12 @@ public class User  implements UserDetails, Serializable {
 
 	@Override
 	public String getPassword() {
-		return null;
+		return this.hashedPassword;
 	}
 
 	@Override
 	public String getUsername() {
-		return null;
+		return this.userName;
 	}
 
 	@Override

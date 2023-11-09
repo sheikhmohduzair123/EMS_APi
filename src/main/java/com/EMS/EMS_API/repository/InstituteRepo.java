@@ -1,3 +1,4 @@
+/*
 package com.EMS.EMS_API.repository;
 
 import com.EMS.EMS_API.entity.Institute;
@@ -8,3 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface InstituteRepo extends JpaRepository<Institute,Long> {
 
 }
+*/
